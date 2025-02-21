@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisdom Archive - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="wisdom-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Wisdom Archive</span>
+            </a>
+            
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="/index" class="nav-link">Home</a></li>
+                    <li><a href="/quotes" class="nav-link">Wisdom Collection</a></li>
+                    <li><a href="/add" class="nav-link cta-link">Share Wisdom</a></li>
+                </ul>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="about-content">
+            <h1>About Wisdom Archive</h1>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>🌍 Our Mission</h3>
+                    <p>We believe words have the power to transcend time and culture. Wisdom Archive is a global platform where voices from every corner of humanity can share insights that inspire, challenge, and enlighten.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>📜 Curated Knowledge</h3>
+                    <p>Explore centuries of accumulated wisdom through:</p>
+                    <ul class="feature-list">
+                        <li>Philosophical musings from great thinkers</li>
+                        <li>Cultural proverbs passed through generations</li>
+                        <li>Modern insights from everyday philosophers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <blockquote class="founder-quote">
+                    "Like a digital Library of Alexandria for human thought, we preserve the essence of what it means to learn and grow."
+                </blockquote>
+            </div>
+
+            <div class="cta-section">
+                <p>Your voice matters. Share the wisdom that guides your journey ➔</p>
+                <a href="/add" class="cta-button">Contribute Your Wisdom</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisdom Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="wisdom-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Wisdom Archive</span>
+            </a>
+            
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="/index" class="nav-link">Home</a></li>
+                    <li><a href="/quotes" class="nav-link">Wisdom Collection</a></li>
+                    <li><a href="/add" class="nav-link cta-link">Share Wisdom</a></li>
+                </ul>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="quotes-container">
+        <h1 class="page-title">Wisdom Through Time</h1>
+        
+        <div class="quotes-grid" id="quotesContainer">
+            <div class="loading-indicator">
+                <svg class="spinner" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+                Gathering wisdom...
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        async function loadQuotes() {
+            const container = document.getElementById('quotesContainer');
+            
+            try {
+                const response = await fetch('http://localhost:8080/getquotes');
+                if (!response.ok) throw new Error('Failed to fetch quotes');
+                
+                const quotes = await response.json();
+                container.innerHTML = '';
+                
+                quotes.forEach(quote => {
+                    const card = document.createElement('article');
+                    card.className = 'quote-card';
+                    card.innerHTML = `
+                        <blockquote class="quote-text">${quote.quote}</blockquote>
+                        <div class="quote-meta">
+                            <span class="quote-author">${quote.name}</span>
+                            ${quote.country ? `<span class="quote-country">${quote.country}</span>` : ''}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+                
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <p>Failed to load wisdom</p>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadQuotes);
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
