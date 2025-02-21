@@ -1,5 +1,4 @@
 document.getElementById('sendBtn').addEventListener('click', async () => {
-    console.log("Hello");
     const formData = {
         name: document.querySelector('[name="name"]').value,
         country: document.querySelector('[name="country"]').value,
