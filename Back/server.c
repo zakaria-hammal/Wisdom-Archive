@@ -35,8 +35,6 @@ void handle_request(int client_fd)
     char buffer[4096];
     read(client_fd, buffer, sizeof(buffer));
 
-    //printf("%s\n", buffer);
-
     if (strstr(buffer, "GET / ")) 
     {
         size_t len;
@@ -175,6 +173,15 @@ void handle_request(int client_fd)
         
         send(client_fd, header, strlen(header), 0);
         send(client_fd, content, len, 0);
+        
+        while (Quotes.head != NULL)
+        {
+            P = Quotes.head;
+            Quotes.head = Quotes.head->next;
+            free(P);
+            Quotes.ElementsNumber -= 1;
+        }
+        
     }
     else if (strstr(buffer, "POST / ")) 
     {
@@ -184,7 +191,7 @@ void handle_request(int client_fd)
             body += 4;
             printf("Received data: %s\n", body);
 
-            char * pointer;
+            char *pointer;
             Quote quote;
             strcpy(quote.Name, "");
             strcpy(quote.Country, "");
