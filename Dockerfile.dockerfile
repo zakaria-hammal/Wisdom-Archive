@@ -6,7 +6,5 @@ WORKDIR /app/Back
 RUN sqlite3 quotes.db < quotes.sql
 RUN gcc -o server server.c dbmanager.c -lsqlite3
 
-FROM alpine:latest
-COPY --from=builder /app/Back /app/Back
 EXPOSE 8080/tcp         
-CMD ["/app/server"]     
+CMD ["./server"]     
