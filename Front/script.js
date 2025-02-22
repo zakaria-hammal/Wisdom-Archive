@@ -10,7 +10,7 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
     }
     else {
         try {
-            const response = await fetch('https://wisdom-archive.onrender.com', {
+            const response = await fetch('http://wisdom-archive.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

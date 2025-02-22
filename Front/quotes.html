@@ -49,7 +49,7 @@
             const container = document.getElementById('quotesContainer');
             
             try {
-                const response = await fetch('http://https://wisdom-archive.onrender.com/getquotes');
+                const response = await fetch('http://wisdom-archive.onrender.com/getquotes');
                 if (!response.ok) throw new Error('Failed to fetch quotes');
                 
                 const quotes = await response.json();
