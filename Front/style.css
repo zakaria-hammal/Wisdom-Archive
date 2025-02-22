@@ -1,5 +1,6 @@
 :root {
-    --primary-color: #2563eb;    
+    --primary-color: #2563eb; 
+    --error-color: #ff3333;    
     --secondary-color: #4f46e5;  
     --accent-color: #f59e0b;         
     --text-color: #1e293b;       
@@ -204,8 +205,16 @@ body {
     margin-top: 3rem;
 }
 
-.cta-section p {
-    color: white;
+.cta-section-notfound {
+    text-align: center;
+    padding: 2rem;
+    background: var(--error-color);
+    border-radius: var(--radius);
+    margin-top: 3rem;
+}
+
+.cta-section-notfound p {
+    color: #2f2d2d;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
@@ -221,10 +230,27 @@ body {
     transition: var(--transition);
 }
 
+.cta-button-notfound {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #eaeaea;
+    color: var(--error-color);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
 .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+.cta-button-notfound:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 
 .form-group {
     margin-bottom: 1.5rem;

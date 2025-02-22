@@ -253,16 +253,18 @@ void handle_request(int client_fd)
     else 
     {
         const char* path = FRONT_DIR;
-        if (strstr(buffer, "GET /style.css")) path = FRONT_DIR "/style.css";
-        if (strstr(buffer, "GET /script.js")) path = FRONT_DIR "/script.js";
+        if (strstr(buffer, "GET /style.css")) {path = FRONT_DIR "/style.css";}
+        else if (strstr(buffer, "GET /script.js")) {path = FRONT_DIR "/script.js";}
+        else {path = FRONT_DIR "/notfound.html";}
 
         size_t len;
         char* content = read_file(path, &len);
         if (content) 
         {
             const char* mime = "text/plain";
-            if (strstr(path, ".css")) mime = "text/css";
-            if (strstr(path, ".js")) mime = "application/javascript";
+            if (strstr(path, ".css")) {mime = "text/css";}
+            else if (strstr(path, ".js")) {mime = "application/javascript";}
+            else {mime = "text/html";}
 
             char header[512];
             snprintf(header, sizeof(header),
