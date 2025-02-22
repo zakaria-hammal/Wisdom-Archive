@@ -12,4 +12,4 @@ INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Confucius(Kong Qiu)', 'Ch
 INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Oscar Wilde', 'Irland', 'Be yourself; everyone else is already taken');
 INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Mahatma Gandhi', 'India', 'Be the change that you wish to see in the world');
 INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Marcus Aurelius', 'Rome', 'The soul becomes dyed with the color of its thoughts');
-INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Dr. Seuss', 'USA', 'You know you're in love when you can't fall asleep because reality is finally better than your dreams');
+INSERT INTO Quotes (Name, Country, QuoteBody) VALUES ('Dr. Seuss', 'USA', 'You know you are in love when you cannot fall asleep because reality is finally better than your dreams');
