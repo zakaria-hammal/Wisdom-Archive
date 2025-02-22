@@ -1,9 +1,9 @@
 FROM alpine:latest AS builder
-RUN apk add build-base sqlite3  # Installs gcc, libc-dev, and make
+RUN apk add build-base sqlite3
 COPY . /app 
 WORKDIR /app/Back
 RUN sqlite3 quotes.db < quotes.sql
-RUN gcc -o server server.c dbmanager.c # Compile the server
+RUN gcc -o server server.c dbmanager.c
 
 FROM alpine:latest
 COPY --from=builder /app/Back /app/Back
