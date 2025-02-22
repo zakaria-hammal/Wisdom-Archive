@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cjson/cJSON.h>
 #include <sqlite3.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -138,23 +139,24 @@ void handle_request(int client_fd)
         {
             while (P->next != NULL)
             {
-                strcat(content, "{\"name\":\"");
-                strcat(content, P->quote.Name);
-                strcat(content, "\",\"country\":\"");
-                strcat(content, P->quote.Country);
-                strcat(content, "\",\"quote\":\"");
-                strcat(content, P->quote.QuoteBody);
-                strcat(content, "\"},");
+                cJSON *json = cJSON_CreateObject(); 
+                cJSON_AddStringToObject(json, "name", P->quote.Name); 
+                cJSON_AddStringToObject(json, "country", P->quote.Country); 
+                cJSON_AddStringToObject(json, "quote", P->quote.QuoteBody); 
+                strcat(content, cJSON_Print(json));
+                cJSON_Delete(json); 
+                strcat(content, ",\n");
                 P = P->next;
             }
 
-            strcat(content, "{\"name\":\"");
-            strcat(content, P->quote.Name);
-            strcat(content, "\",\"country\":\"");
-            strcat(content, P->quote.Country);
-            strcat(content, "\",\"quote\":\"");
-            strcat(content, P->quote.QuoteBody);
-            strcat(content, "\"}");
+            cJSON *json = cJSON_CreateObject(); 
+            cJSON_AddStringToObject(json, "name", P->quote.Name); 
+            cJSON_AddStringToObject(json, "country", P->quote.Country); 
+            cJSON_AddStringToObject(json, "quote", P->quote.QuoteBody); 
+            strcat(content, cJSON_Print(json));
+            cJSON_Delete(json); 
+
+            strcat(content, "\n");
         }
 
         strcat(content, "]");
@@ -192,54 +194,25 @@ void handle_request(int client_fd)
             printf("Received data: %s\n", body);
 
             char *pointer;
+            char *end;
             Quote quote;
             strcpy(quote.Name, "");
             strcpy(quote.Country, "");
             strcpy(quote.QuoteBody, "");
 
-            pointer = strstr(body, "\"name\":\"");
-            pointer += 8;
-
-            int i = 0;
-
-            while (pointer[i] != '\"')
-            {
-                quote.Name[i] = pointer[i];
-                i++;
+            cJSON *root = cJSON_Parse(body);
+            if (root == NULL) {
+                printf("Error parsing JSON!\n");
+                return;
             }
 
-            quote.Name[i] = '\0';
+            cJSON *name = cJSON_GetObjectItem(root, "name");
+            cJSON *country = cJSON_GetObjectItem(root, "country");
+            cJSON *quot = cJSON_GetObjectItem(root, "quote");
 
-            if (!strcmp(quote.Name, ""))
-            {
-                strcpy(quote.Name, "Anonymous");
-            }
-            
-            pointer = strstr(body, "\"country\":\"");
-            pointer += 11;
-
-            i = 0;
-
-            while (pointer[i] != '\"')
-            {
-                quote.Country[i] = pointer[i];
-                i++;
-            }
-
-            quote.Country[i] = '\0';
-            
-            pointer = strstr(body, "\"quote\":\"");
-            pointer += 9;
-
-            i = 0;
-
-            while (pointer[i] != '\"')
-            {
-                quote.QuoteBody[i] = pointer[i];
-                i++;
-            }
-
-            quote.QuoteBody[i] = '\0';
+            strcpy(quote.Name, name->valuestring);
+            strcpy(quote.Country, country->valuestring);
+            strcpy(quote.QuoteBody, quot->valuestring);
 
             AddQuote(db, quote);
 

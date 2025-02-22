@@ -5,6 +5,8 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
         quote: document.querySelector('[name="quotebody"]').value
     };
 
+    console.log(formData.quote);
+
     if (formData.quote == "") {
         alert("Quote cannot be empty !");
     }

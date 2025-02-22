@@ -26,7 +26,7 @@ A minimalist quote sharing platform with a C-based backend server and SQLite dat
 sqlite3 quotes.db < quotes.sql
 
 # Compile
-gcc -o server server.c dbmanager.c -lsqlite3
+gcc -o server server.c dbmanager.c -lsqlite3 -lcjson
 
 # Start server
 ./server

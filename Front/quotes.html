@@ -52,9 +52,14 @@
                 const response = await fetch('/getquotes');
                 if (!response.ok) throw new Error('Failed to fetch quotes');
                 
-                const quotes = await response.json();
-                container.innerHTML = '';
+                const stringquotes = await response.text();
+                console.log(stringquotes);
                 
+                const quotes = JSON.parse(stringquotes);
+                
+                container.innerHTML = '';
+                console.log(quotes.Error);
+
                 quotes.forEach(quote => {
                     const card = document.createElement('article');
                     card.className = 'quote-card';
