@@ -297,7 +297,7 @@ int main()
 
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int));
     bind(server_fd, (struct sockaddr*)&addr, sizeof(addr));
-    listen(server_fd, 10);
+    listen(server_fd, SOMAXCONN);
 
     printf("Server running on http://localhost:%d\n", PORT);
 
