@@ -1,6 +1,6 @@
 FROM alpine:latest AS builder
-RUN apk add build-base sqlite3-dev
-RUN apk add sqlite3
+RUN apk add build-base sqlite-dev
+RUN apk add sqlite
 COPY . /app 
 WORKDIR /app/Back
 RUN sqlite3 quotes.db < quotes.sql
