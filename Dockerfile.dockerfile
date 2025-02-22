@@ -4,7 +4,7 @@ RUN apk add sqlite
 COPY . /app 
 WORKDIR /app/Back
 RUN sqlite3 quotes.db < quotes.sql
-RUN gcc -o server server.c dbmanager.c
+RUN gcc -o server server.c dbmanager.c -lsqlite3
 
 FROM alpine:latest
 COPY --from=builder /app/Back /app/Back
