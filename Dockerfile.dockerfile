@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-RUN apk add build-base sqlite-dev libcjson-dev
+RUN apk add build-base sqlite-dev cjson-dev
 RUN apk add sqlite
 COPY . /app 
 WORKDIR /app/Back
