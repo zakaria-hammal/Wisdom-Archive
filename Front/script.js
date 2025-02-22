@@ -10,7 +10,7 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
     }
     else {
         try {
-            const response = await fetch('http://localhost:8080', {
+            const response = await fetch('http://https://wisdom-archive.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
