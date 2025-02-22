@@ -1,7 +1,7 @@
 FROM alpine:latest AS builder
+RUN apk add build-base
 COPY . /app 
 WORKDIR /app/Back
-RUN apt-get install sqlite3
 RUN sqlite3 quotes.db < quotes.sql
 RUN gcc -o server server.c dbmanager.c
 
