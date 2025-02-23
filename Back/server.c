@@ -36,29 +36,7 @@ void handle_request(int client_fd)
     char buffer[4096];
     read(client_fd, buffer, sizeof(buffer));
 
-    if (strstr(buffer, "GET / ")) 
-    {
-        size_t len;
-        char* content = read_file(FRONT_DIR "/index.html", &len);
-        if (!content) 
-        {
-            char* resp = "HTTP/1.1 404 Not Found\r\n\r\n";
-            send(client_fd, resp, strlen(resp), 0);
-            return;
-        }
-
-        char header[512];
-        snprintf(header, sizeof(header),
-            "HTTP/1.1 200 OK\r\n"
-            "Content-Type: text/html\r\n"
-            "Content-Length: %zu\r\n\r\n",
-            len);
-        
-        send(client_fd, header, strlen(header), 0);
-        send(client_fd, content, len, 0);
-        free(content);
-    }
-    else if (strstr(buffer, "GET /index")) 
+    if (strstr(buffer, "GET /index") || strstr(buffer, "GET / ")) 
     {
         size_t len;
         char* content = read_file(FRONT_DIR "/index.html", &len);
@@ -274,7 +252,8 @@ int main()
 
     printf("Server running on http://localhost:%d\n", PORT);
 
-    while(1) {
+    while(1) 
+    {
         int client_fd = accept(server_fd, NULL, NULL);
         handle_request(client_fd);
         close(client_fd);
