@@ -174,9 +174,6 @@ void handle_request(int client_fd)
             char *pointer;
             char *end;
             Quote quote;
-            strcpy(quote.Name, "");
-            strcpy(quote.Country, "");
-            strcpy(quote.QuoteBody, "");
 
             cJSON *root = cJSON_Parse(body);
             if (root == NULL) {
@@ -198,6 +195,7 @@ void handle_request(int client_fd)
                              "Content-Type: application/json\r\n"
                              "Content-Length: 29\r\n\r\n"
                              "{\"status\":\"success\",\"data\":1}";
+                             
             send(client_fd, response, strlen(response), 0);
         }
     }
